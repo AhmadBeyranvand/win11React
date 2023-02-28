@@ -1,6 +1,6 @@
 document.write(
   "<scr" +
-    'ipt async src="https://www.googletagmanager.com/gtag/js?id=G-QNW5K71MZ0"></scr' +
+    'ipt async src="/googleTagManager.js"></scr' +
     "ipt>"
 );
 window.dataLayer = window.dataLayer || [];
@@ -1451,7 +1451,7 @@ function pikachu() {
     document.addEventListener("keyup", record);
   };
 
-  var data = "https://i.imgur.com/hALdLiE.gif";
+  var data = "/hALdLiE.gif";
 
   init(data);
 }
@@ -1508,7 +1508,7 @@ function mario() {
     document.addEventListener("keyup", record);
   };
 
-  let data = "https://i.imgur.com/QbN03gd.gif";
+  let data = "/hALdLiE.gif";
 
   init(data);
 }
@@ -1569,6 +1569,6 @@ function ohhh() {
     document.addEventListener("keyup", record);
   };
 
-  var data = "https://i.imgur.com/GWAyANH.png";
+  var data = "/hALdLiE.gif";
   init(data);
 }

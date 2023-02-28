@@ -7,19 +7,7 @@ import { i18nextPlugin } from "translation-check";
 const fallbackLng = ["en"];
 const availableLanguages = [
   "en",
-  "da",
-  "de",
-  "es",
-  "fr",
-  "hi",
-  "hu",
-  "ja",
-  "ko",
-  "nl",
-  "ru",
-  "tr",
-  "zh",
-  "si",
+  "fa"
 ];
 
 i18n
