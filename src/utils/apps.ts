@@ -1,9 +1,9 @@
-export const gene_name = () =>
+export const gene_name:()=>string = () =>
   Math.random().toString(36).substring(2, 10).toUpperCase();
 
-let installed = JSON.parse(localStorage.getItem("installed") || "[]");
+let installed:JSON = JSON.parse(localStorage.getItem("installed") || "[]");
 
-const apps = [
+const apps: Object[] = [
   {
     name: "Start",
     icon: "home",
@@ -123,6 +123,12 @@ const apps = [
     name: "Yammer",
     icon: "yammer",
     type: "app",
+  },
+  {
+    name: "Yammer",
+    icon: "yammer",
+    type: "short",
+    action: "camera"
   },
   {
     name: "Mail",

@@ -70,7 +70,7 @@ export const LockScreen = (props) => {
   const wall = useSelector((state) => state.wallpaper);
   const [lock, setLock] = useState(false);
   const [unlocked, setUnLock] = useState(false);
-  const [password, setPass] = useState("");
+  const [password, setPass] = useState("1111");
   const [passType, setType] = useState(1);
   const [forgot, setForget] = useState(false);
   const dispatch = useDispatch();
@@ -120,15 +120,15 @@ export const LockScreen = (props) => {
       data-blur={lock}
     >
       <div className="splashScreen mt-40" data-faded={lock}>
-        <div className="text-6xl font-semibold text-gray-100">
-          {new Date().toLocaleTimeString("en-US", {
+        <div className="text-5xl my-4 font-semibold text-gray-100" dir="rtl">
+          {new Date().toLocaleTimeString("fa-IR", {
             hour: "numeric",
             minute: "numeric",
             hour12: true,
           })}
         </div>
         <div className="text-lg font-medium text-gray-200">
-          {new Date().toLocaleDateString(undefined, {
+          {new Date().toLocaleDateString("fa-IR", {
             weekday: "long",
             month: "long",
             day: "numeric",

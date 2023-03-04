@@ -9925,6 +9925,11 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
+vazirmatn@^33.0.3:
+  version "33.0.3"
+  resolved "https://registry.yarnpkg.com/vazirmatn/-/vazirmatn-33.0.3.tgz#d4617dfb0fa97c6aaeb35ab19fa713f0a04ffc21"
+  integrity sha512-fbjNc0CMjazZpIegWzz9OHGzI1APFboT+x7ZecXlUCtDe/nkyx7gtCTZnWS/+eeXG7fbfXymCPKJI8EsnM3iqw==
+
 vite-plugin-pwa@^0.12.8:
   version "0.12.8"
   resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.12.8.tgz#9eee41771fd9b84bdd5fb548cf6e19ed09bfc2ae"
