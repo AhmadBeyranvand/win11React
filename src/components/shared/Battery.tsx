@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./battery.scss";
 
-const Battery = ({ pct, invert }) => {
+const Battery = ({ pct, invert }):any => {
   // var divtitle = "Battery status: " + level + "% " + (charging ? "available (plugged in)" : "remaining");
 
   const dispatch = useDispatch();
-  const btLevel = useSelector((state) => state.setting.system.power.battery);
+  const btLevel:Number = useSelector((state:any) => state.setting.system.power.battery);
 
-  const updateBatteryStatus = (bt) => {
+  const updateBatteryStatus = (bt:Object) => {
     let level = bt.level * 100 || 100;
     if (bt.charging) {
       level = -level;
