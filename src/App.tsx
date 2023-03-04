@@ -24,7 +24,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div>
       <meta charSet="UTF-8" />
-      <title>404 - Page</title>
+      <title>404 - یافت نشد</title>
       <script src="https://win11.blueedge.me/script.js"></script>
       <link rel="stylesheet" href="https://win11.blueedge.me/style.css" />
       {/* partial:index.partial.html */}
@@ -32,11 +32,12 @@ function ErrorFallback({ error, resetErrorBoundary }) {
         <div id="container">
           <h1>:(</h1>
           <h2>
-            Your PC ran into a problem and needs to restart. We're just
-            collecting some error info, and then we'll restart for you.
+            سیستم شما با مشکلی مواجه شده است. سرور نمی‌تواند پاسخ مناسبی به درخواست شما بدهد.
+            پیشنهاد میکنیم سیستم را ببندید و دوباره اجرا کنید.
+            در صورت مشاهده دوباره این صفحه، مدیر سیستم را مطلع سازید
           </h2>
           <h2>
-            <span id="percentage">0</span>% complete
+            <span id="percentage">0</span>% ارسال شد
           </h2>
           <div id="details">
             <div id="qr">
@@ -46,18 +47,18 @@ function ErrorFallback({ error, resetErrorBoundary }) {
             </div>
             <div id="stopcode">
               <h4>
-                For more information about this issue and possible fixes, visit
+                برای اطلاعات بیشتر می‌توانید از طریق لینک زیر با مدیر سیستم در ارتباط باشید
                 <br />{" "}
-                <a href="https://github.com/blueedgetechno/win11React/issues">
-                  https://github.com/blueedgetechno/win11React/issues
+                <a href="#">
+                https://www.typescriptlang.org/docs/handbook/2/index.html
                 </a>{" "}
               </h4>
               <h5>
-                If you call a support person, give them this info:
+                در صورتی که مدیر سیستم کد خطا را از شما درخواست کرد، این کد را می‌توانید در اختیار او قرار دهید:
                 <br />
-                Stop Code: {error.message}
+                کد خطا: {error.message}
               </h5>
-              <button onClick={resetErrorBoundary}>Try again</button>
+              <button onClick={resetErrorBoundary}>امتحان دوباره</button>
             </div>
           </div>
         </div>
