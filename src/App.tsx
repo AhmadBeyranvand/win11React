@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useDispatch, useSelector } from "react-redux";
 import "./i18nextConf";
 import "./index.css";
+import qr from "./qrcode.png"
 
 import ActMenu from "./components/menu";
 import {
@@ -25,8 +26,8 @@ function ErrorFallback({ error, resetErrorBoundary }) {
     <div>
       <meta charSet="UTF-8" />
       <title>404 - یافت نشد</title>
-      <script src="https://win11.blueedge.me/script.js"></script>
-      <link rel="stylesheet" href="https://win11.blueedge.me/style.css" />
+      <script src="/manualAssets/script.js"></script>
+      <link rel="stylesheet" href="/manualAssets/style.css" />
       {/* partial:index.partial.html */}
       <div id="page">
         <div id="container">
@@ -42,7 +43,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
           <div id="details">
             <div id="qr">
               <div id="image">
-                <img src="https://win11.blueedge.me/img/qr.png" alt="QR Code" />
+                <img src={qr} alt="QR Code" />
               </div>
             </div>
             <div id="stopcode">
@@ -170,7 +171,7 @@ function App() {
           <ActMenu />
         </div>
         :
-        "Not Authorized"
+        "احراز هویت نشده‌اید. لطفا دوباره وارد سامانه شوید"
         }
       </ErrorBoundary>
     </div>

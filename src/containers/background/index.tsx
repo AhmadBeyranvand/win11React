@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Battery from "../../components/shared/Battery";
 import { Icon, Image } from "../../utils/general";
 import "./back.scss";
-import axios from "axios"
+import axios, { Axios } from "axios"
+import userAvatar from "./userAvatar.jpg"
 
 export const Background = () => {
   const wall = useSelector((state) => state.wallpaper);
@@ -111,10 +112,12 @@ export const LockScreen = (props: any) => {
 
     let url: string = "http://hami-co.ir/api/jwt/login"
     let data: Object = { username: loginUsername, password: password }
-    axios.post(url, data).then(res=>{
-      console.log(res)
+    let req = axios.post(url, data).then(res=>{
+      // console.log(res)
       alert(res.status)
     })
+
+    console.log(data)
 
     // setUnLock(true);
 
@@ -149,7 +152,7 @@ export const LockScreen = (props: any) => {
       <div className="fadeinScreen" data-faded={!lock} data-unlock={unlocked}>
         <Image
           className="rounded-full overflow-hidden my-6"
-          src="/userAvatar.jpg"
+          src={userAvatar}
           w={200}
           ext
         />
