@@ -179,3 +179,12 @@
     transform: rotate(1080deg);
   }
 }
+
+.loginTextBox {
+  background: rgba(black, 0.15);
+  padding: 10px 15px;
+  margin: 7px auto;
+  border: solid thin rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  color: white;
+}

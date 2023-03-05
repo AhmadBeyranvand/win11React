@@ -142,6 +142,7 @@ function App() {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         {!wall.booted ? <BootScreen dir={wall.dir} /> : null}
         {wall.locked ? <LockScreen dir={wall.dir} /> : null}
+        {(true)?
         <div className="appwrap">
           <Background />
           <div className="desktop" data-menu="desk">
@@ -168,6 +169,9 @@ function App() {
           <Taskbar />
           <ActMenu />
         </div>
+        :
+        "Not Authorized"
+        }
       </ErrorBoundary>
     </div>
   );
