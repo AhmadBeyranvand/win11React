@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./battery.scss";
 
-const Battery = ({ pct, invert }):any => {
+const Battery = ({ pct, invert }) => {
   // var divtitle = "Battery status: " + level + "% " + (charging ? "available (plugged in)" : "remaining");
 
   const dispatch = useDispatch();

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Battery from "../../components/shared/Battery";
 import { Icon, Image } from "../../utils/general";
 import "./back.scss";
+import axios from "axios"
 
 export const Background = () => {
   const wall = useSelector((state) => state.wallpaper);
@@ -18,7 +19,7 @@ export const Background = () => {
   );
 };
 
-export const BootScreen = (props) => {
+export const BootScreen = (props: any) => {
   const dispatch = useDispatch();
   const wall = useSelector((state) => state.wallpaper);
   const [blackout, setBlackOut] = useState(false);
@@ -66,8 +67,8 @@ export const BootScreen = (props) => {
   );
 };
 
-export const LockScreen = (props) => {
-  const wall = useSelector((state) => state.wallpaper);
+export const LockScreen = (props: any) => {
+  const wall = useSelector((state:any) => state.wallpaper);
   const [lock, setLock] = useState(false);
   const [unlocked, setUnLock] = useState(false);
   const [loginUsername, setLoginUsername] = useState();
@@ -99,7 +100,7 @@ export const LockScreen = (props) => {
     )
   })
 
-  const action = (e) => {
+  const action = (e:any) => {
     var act = e.target.dataset.action,
       payload = e.target.dataset.payload;
 
@@ -107,8 +108,16 @@ export const LockScreen = (props) => {
   };
 
   const proceed = () => {
+
+    let url: string = "http://hami-co.ir/api/jwt/login"
+    let data: Object = { username: loginUsername, password: password }
+    axios.post(url, data).then(res=>{
+      console.log(res)
+      alert(res.status)
+    })
+
     // setUnLock(true);
-    alert("LOGIN ACTION")
+
     // setTimeout(() => {
     //   dispatch({ type: "WALLUNLOCK" });
     // }, 1000);
@@ -149,10 +158,10 @@ export const LockScreen = (props) => {
         </div>
 
         <div className="flex flex-col my-6">
-          <input type="text" value={loginUsername} onChange={action}
+          <input type="text" value={loginUsername} onInput={e=>{setLoginUsername(e.target.value)}} onChange={action}
             className="loginTextBox"
             data-action="inpass" onKeyDown={action2} placeholder="نام کاربری" />
-          <input type="password" value={password} onChange={action}
+          <input type="password" value={password} onInput={e=>{setPass(e.target.value)}} onChange={action}
             className="loginTextBox"
             data-action="inpass" onKeyDown={action2} placeholder="رمز عبور" />
           {/* <Icon className="-ml-6 handcr" fafa="faArrowRight" width={14}
