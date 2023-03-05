@@ -69,13 +69,13 @@ export const BootScreen = (props: any) => {
 };
 
 export const LockScreen = (props: any) => {
-  const wall = useSelector((state:any) => state.wallpaper);
+  const wall = useSelector((state: any) => state.wallpaper);
   const [lock, setLock] = useState(false);
   const [unlocked, setUnLock] = useState(false);
   const [loginUsername, setLoginUsername] = useState();
   const [password, setPass] = useState();
-  const [passType, setType] = useState(1);
-  const [forgot, setForget] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const [windowsTime, setWindowsTime] = useState("")
   const [windowsDate, setWindowsDate] = useState("")
   const dispatch = useDispatch();
@@ -97,11 +97,11 @@ export const LockScreen = (props: any) => {
         year: "numeric",
         weekday: "long",
       })
-      
+
     )
   })
 
-  const action = (e:any) => {
+  const action = (e: any) => {
     var act = e.target.dataset.action,
       payload = e.target.dataset.payload;
 
@@ -109,15 +109,23 @@ export const LockScreen = (props: any) => {
   };
 
   const proceed = () => {
-
+    setPending(true)
     let url: string = "http://hami-co.ir/api/jwt/login"
     let data: Object = { username: loginUsername, password: password }
-    let req = axios.post(url, data).then(res=>{
-      // console.log(res)
-      alert(res.status)
-    })
+    let req = axios.post(url, data)
+      .then(res => {
+        // console.log(res)
+        alert("Succeed")
+      })
+      .catch(err => {
+        setLoginError(true)
+        alert("ERROR")
+      })
+      .finally(()=>{
+        setPending(false)
+      })
 
-    console.log(data)
+    // console.log(data)
 
     // setUnLock(true);
 
@@ -126,7 +134,7 @@ export const LockScreen = (props: any) => {
     // }, 1000);
   };
 
-  const action2:any = (e: KeyboardEvent) => {
+  const action2: any = (e: KeyboardEvent) => {
     if (e.key == "Enter") proceed();
   };
 
@@ -159,22 +167,38 @@ export const LockScreen = (props: any) => {
         <div className="mt-2 text-2xl font-medium text-gray-200 text-center">
           خوش آمدید! لطفا برای ادامه اطلاعات کاربری خود را وارد کنید
         </div>
+        {(loginError)
+          ?
+          <div className="p-8 bg-anim-error flex flex-col justify-center items-center">
+            <div className="text-xl font-medium mt-12 text-gray-200 text-center" dir="rtl">
+              اطلاعات ورودی نادرست است. لطفا اطلاعات خود را دوباره چک کنید!
+            </div>
+            <div className="flex items-center mt-6 signInBtn" onClick={() => { setLoginError(false) }}>
+              امتحان دوباره
+            </div>
+          </div>
+          :
+          <>
+            <div className="flex flex-col my-6">
+              <input type="text" value={loginUsername} onInput={e => { setLoginUsername(e.target.value) }} onChange={action}
+                className="loginTextBox"
+                data-action="inpass" onKeyDown={action2} placeholder="نام کاربری" />
+              <input type="password" value={password} onInput={e => { setPass(e.target.value) }} onChange={action}
+                className="loginTextBox"
+                data-action="inpass" onKeyDown={action2} placeholder="رمز عبور" />
+              {/* <Icon className="-ml-6 handcr" fafa="faArrowRight" width={14}
+    color="rgba(170, 170, 170, 0.6)" onClick={proceed} /> */}
+            </div>
 
-        <div className="flex flex-col my-6">
-          <input type="text" value={loginUsername} onInput={e=>{setLoginUsername(e.target.value)}} onChange={action}
-            className="loginTextBox"
-            data-action="inpass" onKeyDown={action2} placeholder="نام کاربری" />
-          <input type="password" value={password} onInput={e=>{setPass(e.target.value)}} onChange={action}
-            className="loginTextBox"
-            data-action="inpass" onKeyDown={action2} placeholder="رمز عبور" />
-          {/* <Icon className="-ml-6 handcr" fafa="faArrowRight" width={14}
-            color="rgba(170, 170, 170, 0.6)" onClick={proceed} /> */}
-        </div>
-
-        <div className="flex items-center mt-6 signInBtn" onClick={proceed}>
-          ورود
-        </div>
-
+            <div className="flex items-center mt-6 signInBtn" onClick={proceed}>
+              {(pending && !loginError) ?
+                <Icon fafa="faSpinner" className="animate-spin" />
+                :
+                "ورود"
+              }
+            </div>
+          </>
+        }
 
       </div>
       <div className="bottomInfo flex">

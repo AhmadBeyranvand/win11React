@@ -190,3 +190,19 @@
   position: relative;
   
 }
+.bg-anim-error {
+  animation: bg-danger 2s 1 ease;
+  margin-top: 20px;
+  border-radius: 10px;
+  @keyframes bg-danger {
+    0% {
+      background: transparent;
+    }
+    50% {
+      background: rgba(red, 0.2);
+    }
+    100% {
+      background: transparent;
+    }
+  }
+}
