@@ -1,7 +1,7 @@
 export const gene_name:()=>string = () =>
   Math.random().toString(36).substring(2, 10).toUpperCase();
 
-let installed:JSON = JSON.parse(localStorage.getItem("installed") || "[]");
+let installed:JSON[] = JSON.parse(localStorage.getItem("installed") || "[]");
 
 const apps: Object[] = [
   {

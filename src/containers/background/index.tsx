@@ -1,23 +1,23 @@
-import React, { KeyboardEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Battery from "../../components/shared/Battery";
 import { Icon, Image } from "../../utils/general";
 import "./back.scss";
-import axios, { Axios } from "axios"
+import axios from "axios"
 import userAvatar from "./userAvatar.jpg"
+import { useCookies } from "react-cookie";
 
 export const Background = () => {
   const wall = useSelector((state) => state.wallpaper);
   const dispatch = useDispatch();
-
-  return (
-    <div
-      className="background"
-      style={{
-        backgroundImage: `url(img/wallpaper/${wall.src})`,
-      }}
-    ></div>
-  );
+    return (
+      <div
+        className="background"
+        style={{
+          backgroundImage: `url(img/wallpaper/${wall.src})`,
+        }}
+      ></div>
+    );
 };
 
 export const BootScreen = (props: any) => {
@@ -75,9 +75,11 @@ export const LockScreen = (props: any) => {
   const [loginUsername, setLoginUsername] = useState();
   const [password, setPass] = useState();
   const [pending, setPending] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  const [loginError, setLoginError] = useState(false)
+  const [errorText, setErrorText] = useState("-------------")
   const [windowsTime, setWindowsTime] = useState("")
   const [windowsDate, setWindowsDate] = useState("")
+  const [cookie, setCookie] = useCookies()
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -112,26 +114,30 @@ export const LockScreen = (props: any) => {
     setPending(true)
     let url: string = "http://hami-co.ir/api/jwt/login"
     let data: Object = { username: loginUsername, password: password }
-    let req = axios.post(url, data)
+    let req = axios.post(url+"?username="+loginUsername+"&password="+password)
       .then(res => {
-        // console.log(res)
-        alert("Succeed")
+        if(res.status == 200){
+          if(res.data.token){
+            setCookie("token", res.data.token)
+            setUnLock(true);
+            setTimeout(() => {
+              dispatch({ type: "WALLUNLOCK" });
+            }, 1000);
+          } else {
+            alert (" خطا در هنگام دریافت توکن")
+          }
+        } else {
+          alert("وضعیت سرور نا مشخص")
+        }
       })
       .catch(err => {
+        setErrorText(err.response.data.message)
         setLoginError(true)
-        alert("ERROR")
       })
       .finally(()=>{
         setPending(false)
       })
 
-    // console.log(data)
-
-    // setUnLock(true);
-
-    // setTimeout(() => {
-    //   dispatch({ type: "WALLUNLOCK" });
-    // }, 1000);
   };
 
   const enterEvent: any = (e: KeyboardEvent) => {
@@ -171,7 +177,7 @@ export const LockScreen = (props: any) => {
           ?
           <div className="p-8 bg-anim-error flex flex-col justify-center items-center">
             <div className="text-xl font-medium mt-12 text-gray-200 text-center" dir="rtl">
-              اطلاعات ورودی نادرست است. لطفا اطلاعات خود را دوباره چک کنید!
+              {errorText}
             </div>
             <div className="flex items-center mt-6 signInBtn" onClick={() => { setLoginError(false) }}>
               امتحان دوباره
@@ -180,7 +186,7 @@ export const LockScreen = (props: any) => {
           :
           <>
             <div className="flex flex-col my-6">
-              <input type="text" value={loginUsername} onInput={e => { setLoginUsername(e.target.value) }} onChange={action}
+              <input name="username" value={loginUsername} onInput={e => { setLoginUsername(e.target.value) }} onChange={action}
                 className="loginTextBox"
                 data-action="inpass" onKeyDown={enterEvent} placeholder="نام کاربری" />
               <input type="password" value={password} onInput={e => { setPass(e.target.value) }} onChange={action}

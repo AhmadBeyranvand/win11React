@@ -233,7 +233,9 @@
       "spid": "%ddrive%"
     },
     "data": {
-      "Adobe": {},
+      "Adobe": {
+        "sssssssss":{}
+      },
       "Programs": {},
       "Unity": {},
       "WindowsApp": {},
