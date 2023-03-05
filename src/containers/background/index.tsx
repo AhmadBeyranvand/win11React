@@ -134,7 +134,7 @@ export const LockScreen = (props: any) => {
     // }, 1000);
   };
 
-  const action2: any = (e: KeyboardEvent) => {
+  const enterEvent: any = (e: KeyboardEvent) => {
     if (e.key == "Enter") proceed();
   };
 
@@ -182,10 +182,10 @@ export const LockScreen = (props: any) => {
             <div className="flex flex-col my-6">
               <input type="text" value={loginUsername} onInput={e => { setLoginUsername(e.target.value) }} onChange={action}
                 className="loginTextBox"
-                data-action="inpass" onKeyDown={action2} placeholder="نام کاربری" />
+                data-action="inpass" onKeyDown={enterEvent} placeholder="نام کاربری" />
               <input type="password" value={password} onInput={e => { setPass(e.target.value) }} onChange={action}
                 className="loginTextBox"
-                data-action="inpass" onKeyDown={action2} placeholder="رمز عبور" />
+                data-action="inpass" onKeyDown={enterEvent} placeholder="رمز عبور" />
               {/* <Icon className="-ml-6 handcr" fafa="faArrowRight" width={14}
     color="rgba(170, 170, 170, 0.6)" onClick={proceed} /> */}
             </div>
