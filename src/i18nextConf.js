@@ -4,7 +4,7 @@ import Backend from "i18next-xhr-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { i18nextPlugin } from "translation-check";
 
-const fallbackLng = ["en"];
+const fallbackLng = ["fa-IR"];
 const availableLanguages = [
   "fa"
 ];
@@ -18,7 +18,7 @@ i18n
     fallbackLng, // fallback language is english.
 
     backend: {
-      loadPath: "locales/{{lng}}/translate.json",
+      loadPath: "locales/fa-IR/translate.json",
     },
 
     detection: {
