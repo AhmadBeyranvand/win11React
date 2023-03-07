@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useDispatch, useSelector } from "react-redux";
 import "./i18nextConf";
 import "./index.css";
 import qr from "./qrcode.png"
+import "./utils/axiosConfig"
 
 import ActMenu from "./components/menu";
 import {
@@ -20,6 +21,7 @@ import { Background, BootScreen, LockScreen } from "./containers/background";
 import { loadSettings } from "./actions";
 import * as Applications from "./containers/applications";
 import * as Drafts from "./containers/applications/draft";
+import { useCookies } from "react-cookie";
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -72,6 +74,8 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 function App() {
   const apps = useSelector((state) => state.apps);
   const wall = useSelector((state) => state.wallpaper);
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [cookie, setCookie] = useCookies()
   const dispatch = useDispatch();
 
   const afterMath = (event) => {
@@ -136,6 +140,9 @@ function App() {
         dispatch({ type: "WALLBOOTED" });
       }, 5000);
     }
+    if(cookie.token && localStorage.getItem("token") && cookie.token==localStorage.getItem("token")){
+      setLoggedIn(true)
+    }
   });
 
   return (
@@ -143,7 +150,7 @@ function App() {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         {!wall.booted ? <BootScreen dir={wall.dir} /> : null}
         {wall.locked ? <LockScreen dir={wall.dir} /> : null}
-        {(true)?
+        {(loggedIn)?
         <div className="appwrap">
           <Background />
           <div className="desktop" data-menu="desk">
@@ -171,7 +178,7 @@ function App() {
           <ActMenu />
         </div>
         :
-        "احراز هویت نشده‌اید. لطفا دوباره وارد سامانه شوید"
+        <LockScreen />
         }
       </ErrorBoundary>
     </div>

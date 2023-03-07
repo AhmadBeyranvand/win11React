@@ -6,7 +6,6 @@ import { i18nextPlugin } from "translation-check";
 
 const fallbackLng = ["en"];
 const availableLanguages = [
-  "en",
   "fa"
 ];
 

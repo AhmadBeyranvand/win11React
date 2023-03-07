@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEventHandler, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Battery from "../../components/shared/Battery";
 import { Icon, Image } from "../../utils/general";
@@ -6,6 +6,7 @@ import "./back.scss";
 import axios from "axios"
 import userAvatar from "./userAvatar.jpg"
 import { useCookies } from "react-cookie";
+import axiosInstance from "../../utils/axiosConfig";
 
 export const Background = () => {
   const wall = useSelector((state) => state.wallpaper);
@@ -72,8 +73,8 @@ export const LockScreen = (props: any) => {
   const wall = useSelector((state: any) => state.wallpaper);
   const [lock, setLock] = useState(false);
   const [unlocked, setUnLock] = useState(false);
-  const [loginUsername, setLoginUsername] = useState();
-  const [password, setPass] = useState();
+  const [loginUsername, setLoginUsername] = useState("");
+  const [password, setPass] = useState("");
   const [pending, setPending] = useState(false);
   const [loginError, setLoginError] = useState(false)
   const [errorText, setErrorText] = useState("-------------")
@@ -81,6 +82,18 @@ export const LockScreen = (props: any) => {
   const [windowsDate, setWindowsDate] = useState("")
   const [cookie, setCookie] = useCookies()
   const dispatch = useDispatch();
+
+  const stateUsername:FormEventHandler<HTMLInputElement> = (e: Event)=>{
+    const target = e.target as HTMLInputElement
+    setLoginUsername(target.value)
+    console.log(loginUsername)
+  }
+
+  const statePassword:FormEventHandler<HTMLInputElement> = (e: Event)=>{
+    const target = e.target as HTMLInputElement
+    setPass(target.value)
+    console.log(password)
+  }
 
   useEffect(() => {
     setInterval(() => {
@@ -113,11 +126,11 @@ export const LockScreen = (props: any) => {
   const proceed = () => {
     setPending(true)
     let url: string = "http://hami-co.ir/api/jwt/login"
-    let data: Object = { username: loginUsername, password: password }
-    let req = axios.post(url+"?username="+loginUsername+"&password="+password)
+    axiosInstance.post(url+"?username="+loginUsername+"&password="+password)
       .then(res => {
         if(res.status == 200){
           if(res.data.token){
+            localStorage.setItem("token", res.data.token)
             setCookie("token", res.data.token)
             setUnLock(true);
             setTimeout(() => {
@@ -186,10 +199,10 @@ export const LockScreen = (props: any) => {
           :
           <>
             <div className="flex flex-col my-6">
-              <input name="username" value={loginUsername} onInput={e => { setLoginUsername(e.target.value) }} onChange={action}
+              <input name="username" value={loginUsername} onInput={ stateUsername } onChange={action}
                 className="loginTextBox"
                 data-action="inpass" onKeyDown={enterEvent} placeholder="نام کاربری" />
-              <input type="password" value={password} onInput={e => { setPass(e.target.value) }} onChange={action}
+              <input type="password" value={password} onInput={ statePassword } onChange={action}
                 className="loginTextBox"
                 data-action="inpass" onKeyDown={enterEvent} placeholder="رمز عبور" />
               {/* <Icon className="-ml-6 handcr" fafa="faArrowRight" width={14}
