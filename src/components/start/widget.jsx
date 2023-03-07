@@ -26,7 +26,7 @@ export const WidPane = () => {
             <Icon fafa="faEllipsisH" width={12} />
           </div>
           <div className="widTime">
-            {new Date().toLocaleTimeString("en-US", {
+            {new Date().toLocaleTimeString("fa-IR", {
               hour: "numeric",
               minute: "2-digit",
             })}

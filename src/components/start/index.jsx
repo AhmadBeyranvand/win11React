@@ -261,7 +261,7 @@ export const CalnWid = () => {
     >
       <div className="topBar pl-4 text-sm">
         <div className="date">
-          {new Date().toLocaleDateString(undefined, {
+          {new Date().toLocaleDateString("fa-IR", {
             weekday: "long",
             month: "long",
             day: "numeric",

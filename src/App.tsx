@@ -22,6 +22,7 @@ import { loadSettings } from "./actions";
 import * as Applications from "./containers/applications";
 import * as Drafts from "./containers/applications/draft";
 import { useCookies } from "react-cookie";
+import axiosInstance from "./utils/axiosConfig";
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -144,6 +145,13 @@ function App() {
       setLoggedIn(true)
     }
   });
+
+  // useEffect(()=>{
+  //   axiosInstance.get("/api/config").then(res=>{
+  //     console.info("RECIEVED!")
+  //     console.log(res)
+  //   })
+  // })
 
   return (
     <div className="App">

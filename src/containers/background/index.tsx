@@ -86,13 +86,11 @@ export const LockScreen = (props: any) => {
   const stateUsername:FormEventHandler<HTMLInputElement> = (e: Event)=>{
     const target = e.target as HTMLInputElement
     setLoginUsername(target.value)
-    console.log(loginUsername)
   }
 
   const statePassword:FormEventHandler<HTMLInputElement> = (e: Event)=>{
     const target = e.target as HTMLInputElement
     setPass(target.value)
-    console.log(password)
   }
 
   useEffect(() => {
@@ -125,7 +123,7 @@ export const LockScreen = (props: any) => {
 
   const proceed = () => {
     setPending(true)
-    let url: string = "http://hami-co.ir/api/jwt/login"
+    let url: string = "/api/jwt/login"
     axiosInstance.post(url+"?username="+loginUsername+"&password="+password)
       .then(res => {
         if(res.status == 200){

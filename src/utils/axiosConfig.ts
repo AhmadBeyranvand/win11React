@@ -1,11 +1,10 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 
 const axiosInstance = axios.create({
     baseURL : 'http://hami-co.ir',
     headers:{
-        common: {
-            Authorization :  `Bearer `+localStorage.getItem("token")
-        }
+        Authorization : `Bearer `+localStorage.getItem("token")
+
     }
 })
 

@@ -88,7 +88,7 @@ const defState = {
         Math.round(Math.random()),
       ],
     ],
-    date: date.toLocaleDateString("en-US", {
+    date: date.toLocaleDateString("fa-IR", {
       year: "numeric",
       month: "short",
       day: "numeric",

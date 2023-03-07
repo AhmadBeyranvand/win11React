@@ -250,7 +250,7 @@ export const Settings = () => {
                           return (
                             <div className="timeTop">
                               <h1>
-                                {new Date().toLocaleTimeString("en-US", {
+                                {new Date().toLocaleTimeString("fa-IR", {
                                   hour: "numeric",
                                   minute: "numeric",
                                   hour12: true,
