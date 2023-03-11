@@ -73,9 +73,9 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 function App() {
-  const apps = useSelector((state) => state.apps);
-  const wall = useSelector((state) => state.wallpaper);
-  const [loggedIn, setLoggedIn] = useState(false)
+  const apps = useSelector((state: {apps:String[]}) => state.apps);
+  const wall = useSelector((state: {wallpaper: String[]}) => state.wallpaper);
+  const login = useSelector((state: {login: {loginState: boolean, token:string, username: string}}) => state.login);
   const [cookie, setCookie] = useCookies()
   const dispatch = useDispatch();
 
@@ -141,9 +141,6 @@ function App() {
         dispatch({ type: "WALLBOOTED" });
       }, 5000);
     }
-    if(cookie.token && localStorage.getItem("token") && cookie.token==localStorage.getItem("token")){
-      setLoggedIn(true)
-    }
   });
 
   // useEffect(()=>{
@@ -158,7 +155,7 @@ function App() {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         {!wall.booted ? <BootScreen dir={wall.dir} /> : null}
         {wall.locked ? <LockScreen dir={wall.dir} /> : null}
-        {(loggedIn)?
+        {(login.loginState)?
         <div className="appwrap">
           <Background />
           <div className="desktop" data-menu="desk">

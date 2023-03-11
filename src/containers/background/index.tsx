@@ -130,6 +130,7 @@ export const LockScreen = (props: any) => {
           if(res.data.token){
             localStorage.setItem("token", res.data.token)
             setCookie("token", res.data.token)
+            dispatch({type:"LOGIN", payload:{token:res.data.token, username: "TTTTTTTTTEEEEESSSSTTTT UUUUSSSEERR"}})
             setUnLock(true);
             setTimeout(() => {
               dispatch({ type: "WALLUNLOCK" });

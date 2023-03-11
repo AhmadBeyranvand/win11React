@@ -9,6 +9,7 @@ import widReducer from "./widpane";
 import appReducer from "./apps";
 import menusReducer from "./menu";
 import globalReducer from "./globals";
+import loginReducer from "./login";
 import settReducer from "./settings";
 import fileReducer from "./files";
 
@@ -24,6 +25,7 @@ const allReducers = combineReducers({
   globals: globalReducer,
   setting: settReducer,
   files: fileReducer,
+  login: loginReducer,
 });
 
 var store = createStore(allReducers);
