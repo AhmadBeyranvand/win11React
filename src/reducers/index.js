@@ -12,6 +12,7 @@ import globalReducer from "./globals";
 import loginReducer from "./login";
 import settReducer from "./settings";
 import fileReducer from "./files";
+import userManagerReducer from "./userManager"
 
 const allReducers = combineReducers({
   wallpaper: wallReducer,
@@ -26,6 +27,7 @@ const allReducers = combineReducers({
   setting: settReducer,
   files: fileReducer,
   login: loginReducer,
+  userManager: userManagerReducer
 });
 
 var store = createStore(allReducers);

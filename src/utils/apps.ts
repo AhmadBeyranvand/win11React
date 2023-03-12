@@ -5,6 +5,12 @@ let installed:JSON[] = JSON.parse(localStorage.getItem("installed") || "[]");
 
 const apps: Object[] = [
   {
+    name: "User Manager",
+    icon: "people",
+    type: "app",
+    action: "USERMANAGER",
+  },
+  {
     name: "Start",
     icon: "home",
     type: "action",
