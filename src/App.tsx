@@ -155,7 +155,8 @@ function App() {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         {!wall.booted ? <BootScreen dir={wall.dir} /> : null}
         {wall.locked ? <LockScreen dir={wall.dir} /> : null}
-        {(login.loginState)?
+        {/* {(login.loginState)? */}
+        { (true)?
         <div className="appwrap">
           <Background />
           <div className="desktop" data-menu="desk">

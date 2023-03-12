@@ -7,12 +7,12 @@ export const EdgeMenu = () => {
   const [url, setUrl] = useState("https://www.google.com/?igu=1");
   const [ierror, setErr] = useState(true);
   const [isTyping, setTyping] = useState(false);
-  const [hist, setHist] = useState(["https://bing.com", "https://bing.com"]);
+  const [hist, setHist] = useState(["https://google.com", "https://google.com"]);
   const dispatch = useDispatch();
 
   const iframes = {
     "https://www.google.com/webhp?igu=1": "Google",
-    "https://bing.com": "Bing",
+    "https://google.com": "google",
   };
 
   const favicons = {
@@ -34,8 +34,8 @@ export const EdgeMenu = () => {
     if (iframe && x == 0) {
       iframe.src = iframe.src;
     } else if (iframe && x == 1) {
-      setHist([url, "https://www.bing.com"]);
-      setUrl("https://www.bing.com");
+      setHist([url, "https://www.google.com"]);
+      setUrl("https://www.google.com");
       setTyping(false);
     } else if (iframe && x == 2) {
       setHist([url, "https://www.google.com/webhp?igu=1"]);
@@ -50,7 +50,7 @@ export const EdgeMenu = () => {
             qry = "https://" + qry;
           }
         } else {
-          qry = "https://www.bing.com/search?q=" + qry;
+          qry = "https://www.google.com/search?q=" + qry;
         }
 
         e.target.value = qry;
