@@ -1,31 +1,14 @@
 const defState = {
-    loginState: false,
-    token: "",
-    username: ""
+    size: "full"
 }
 
 
 const userManagerReducer:
-(state:{loginState: boolean, token: string, username: string }, action:{type:string, payload:{loginState: boolean, token: string, username: string }})
-=>{loginState:Boolean; token:String; username: String} 
-= (state = defState, action) => {
-    var liveData = { ...state }
-    switch (action.type) {
-        case "LOGIN":
-            liveData.loginState = true
-            liveData.token = action.payload.token
-            liveData.username = action.payload.username
-            break
-        case "LOGOUT":
-            liveData.loginState = false
-            liveData.token = ""
-            liveData.username = ""
-            break
-        default:
-            break
-
-    }
-    return liveData;
-};
+    (state: { size: string }, action: { type: string, payload: {} }) => {}
+    = (state = defState, action) => {
+        var liveData = { ...state }
+        
+        return liveData;
+    };
 
 export default userManagerReducer
