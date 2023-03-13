@@ -175,8 +175,8 @@ export const userManager = () => {
                         </td>
                         <td>
                           <div className="flex xl:flex-row flex-col">
-                            <button>ویرایش</button>
-                            <button>تاریخچه ورود</button>
+                            <button className={(theme==="light"?"text-gray-600":"text-gray-100")}>ویرایش</button>
+                            <button className={(theme==="light"?"text-gray-600":"text-gray-100")}>تاریخچه ورود</button>
                           </div>
                         </td>
                       </tr>
