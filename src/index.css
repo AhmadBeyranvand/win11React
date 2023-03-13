@@ -5,6 +5,7 @@
 *::selection {
   background: initial;
 }
+
 * {
   font-family: Vazirmatn !important;
 }
@@ -149,9 +150,11 @@ i[data-flip="true"] {
 .dpShad {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
 }
+
 .mdShad {
   box-shadow: 0 0 8px rgba(41, 41, 41, 0.1);
 }
+
 .ltShad {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
@@ -268,4 +271,18 @@ a {
   align-items: center;
   background: #010001;
   color: white;
+}
+
+.win11input {
+  transition: all 150ms ease;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+  padding: 10px 20px;
+  margin: auto 10px;
+  border-bottom: solid thin #777;
+  border-radius: 5px;
+}
+.win11input:focus {
+  border-width: 3px;
+  border-color: #0074ff;
 }

@@ -9,8 +9,22 @@ export const userManager = () => {
   const wnapp = useSelector((state) => state.apps.people);
   const theme: string = useSelector((state) => state.setting.person.theme);
   const dispatch = useDispatch();
+  const [activeMenu, setActiveMenu] = useState("userAdd")
 
-  const [nav, setNav] = useState("");
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+  const [newNationalCode, setNewNationalCode] = useState("");
+  const [newBirthDate, setNewBirthDate] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newUserLevel, setNewUserLevel] = useState("");
+  const [newUserRole, setNewUserRole] = useState("");
+  const [newUserProfile, setNewUserProfile] = useState("");
+  const [newUserStatus, setNewUserStatus] = useState("");
+
+  const [nav, setNav] = useState("")
+
   const [upmodalOpen, setUpmodalOpen] = useState(false);
 
   return (
@@ -57,7 +71,16 @@ export const userManager = () => {
               />
             </div>
             <div className="nav_bottom win11Scroll">
-              <div key="userAdd" className="navLink" >
+              <div key="userList" onClick={() => { setActiveMenu("userList") }} className={"navLink ".concat((activeMenu == "userList") ? " selected" : "")} >
+                <img
+                  src={`img/icon/people.png`}
+                  alt=""
+                  height={16}
+                  width={16}
+                />
+                لیست کاربران
+              </div>
+              <div key="userAdd" onClick={() => { setActiveMenu("userAdd") }} className={"navLink ".concat((activeMenu == "userAdd") ? " selected" : "")} >
                 <img
                   src={`img/settings/Accounts.webp`}
                   alt=""
@@ -66,7 +89,7 @@ export const userManager = () => {
                 />
                 اضافه کردن کاربر جدید
               </div>
-              <div key="printPage" className="navLink" >
+              <div key="printPage" className={"navLink ".concat((activeMenu == "printPage") ? " selected" : "")} >
                 <img
                   src={`img/custom/print.png`}
                   alt=""
@@ -75,7 +98,7 @@ export const userManager = () => {
                 />
                 پرینت اطلاعات
               </div>
-              <div key="help" className="navLink" >
+              <div key="help" onClick={() => { setActiveMenu("help") }} className={"navLink ".concat((activeMenu == "help") ? " selected" : "")} >
                 <img
                   src={`img/icon/feedback.png`}
                   alt=""
@@ -84,62 +107,141 @@ export const userManager = () => {
                 />
                 راهنمای صفحه
               </div>
+              {activeMenu == "edit" &&
+                <div key="edit" className={"navLink ".concat((activeMenu == "edit") ? " selected" : "")} >
+                  <img
+                    src={`img/custom/user-edit.png`}
+                    alt=""
+                    height={16}
+                    width={16}
+                  />
+                  ویرایش اطلاعات
+                </div>
+              }
+              {activeMenu == "history" &&
+                <div key="history" className={"navLink ".concat((activeMenu == "history") ? " selected" : "")} >
+                  <img
+                    src={`img/custom/time.png`}
+                    alt=""
+                    height={16}
+                    width={16}
+                  />
+                  تاریخچه
+                </div>
+              }
 
               <div className="marker"></div>
             </div>
 
           </nav>
-
-          <main key="userManager">
-            <h1>مدیریت کاربران</h1>
-            <div className="tilesCont win11Scroll">
-              <div key="userManagerPage" className="py-5 px-10">
-                <table className={"table-auto w-full " + ((theme === "light") ? "bg-white" : "bg-gray-700")}>
-                  <thead>
-                    <tr className="p-3">
-                      <th>نام</th>
-                      <th>نام خانوادگی</th>
-                      <th>ایمیل</th>
-                      <th>نام کاربری</th>
-                      <th>وضعیت</th>
-                      <th>عملیات</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>احمد</td>
-                      <td>بیرانوند</td>
-                      <td>ahmad@gmail.com</td>
-                      <td>beyranvand</td>
-                      <td>
-                        <div className="flex justify-center">
-                          {(!true) ?
-                            <>
-                              <div className="status success"> فعال </div>
-                              <button className="danger">
-                                <Icon fafa="faMinus" />
-                              </button>
-                            </> :
-                            <>
-                              <div className="status danger"> غیر فعال </div>
-                              <button className="success">
-                                <Icon fafa="faCheck" />
-                              </button></>
-                          }
-                        </div>
-                      </td>
-                      <td>
-                        <div className="flex xl:flex-row flex-col">
-                          <button>ویرایش</button>
-                          <button>تاریخچه ورود</button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          {activeMenu == "userList" &&
+            <main key="userManager">
+              <h1>مدیریت کاربران</h1>
+              <div className="tilesCont win11Scroll">
+                <div key="userManagerPage" className="py-5 px-10">
+                  <table className={"table-auto w-full " + ((theme === "light") ? "bg-white" : "bg-gray-700")}>
+                    <thead>
+                      <tr className="p-3">
+                        <th>نام</th>
+                        <th>نام خانوادگی</th>
+                        <th>ایمیل</th>
+                        <th>نام کاربری</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>احمد</td>
+                        <td>بیرانوند</td>
+                        <td>ahmad@gmail.com</td>
+                        <td>beyranvand</td>
+                        <td>
+                          <div className="flex justify-center">
+                            {(!true) ?
+                              <>
+                                <div className="status success"> فعال </div>
+                                <button className="danger">
+                                  <Icon fafa="faMinus" />
+                                </button>
+                              </> :
+                              <>
+                                <div className="status danger"> غیر فعال </div>
+                                <button className="success">
+                                  <Icon fafa="faCheck" />
+                                </button></>
+                            }
+                          </div>
+                        </td>
+                        <td>
+                          <div className="flex xl:flex-row flex-col">
+                            <button>ویرایش</button>
+                            <button>تاریخچه ورود</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-          </main>
+            </main>
+          }
+
+          {activeMenu == "userAdd" &&
+            <main key="userAdd">
+              <h1>اضافه کردن کاربر جدید</h1>
+              <div className="tilesCont win11Scroll">
+                <div key="userAddPage" className="py-5 px-10 flex">
+                  <div className="flex flex-col m-5">
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">نام</label>
+                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">نام خانوادگی</label>
+                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">نام کاربری</label>
+                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">رمز عبور</label>
+                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">کدملی</label>
+                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col m-5">
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">تاریخ تولد </label>
+                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">ایمیل</label>
+                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">سطح کاربر</label>
+                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">سمت</label>
+                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">پروفایل</label>
+                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          }
+
+
 
           {upmodalOpen && (
             <>
