@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTheme } from "../../../actions";
 import { Icon, ToolBar } from "../../../utils/general";
-import LangSwitch from "./assets/Langswitch";
 import "./assets/settings.scss";
+import { DatePicker } from "zaman"
+import {Select} from "antd"
 
 export const userManager = () => {
   const wnapp = useSelector((state) => state.apps.people);
@@ -14,18 +14,49 @@ export const userManager = () => {
   const [newFirstName, setNewFirstName] = useState("");
   const [newLastName, setNewLastName] = useState("");
   const [newNationalCode, setNewNationalCode] = useState("");
-  const [newBirthDate, setNewBirthDate] = useState("");
+  const [newBirthDate, setNewBirthDate] = useState(new Date().toString());
   const [newEmail, setNewEmail] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newUserLevel, setNewUserLevel] = useState("");
-  const [newUserRole, setNewUserRole] = useState("");
-  const [newUserProfile, setNewUserProfile] = useState("");
+  const [newUserRole, setNewUserRole] = useState(["A2"]);
+  const [newUserProfile, setNewUserProfile] = useState(["P1"]);
   const [newUserStatus, setNewUserStatus] = useState("");
+  const [roleData,setRoleData] = useState([{label:"AAAA", value:"AAA"},{label:"BBBB", value:"BBBB"}, {label:"CCCC", value:"CCCC"}])
 
   const [nav, setNav] = useState("")
 
   const [upmodalOpen, setUpmodalOpen] = useState(false);
+
+  const clearForm = () => {
+    setNewFirstName("")
+    setNewLastName("")
+    setNewNationalCode("")
+    setNewBirthDate("")
+    setNewEmail("")
+    setNewUsername("")
+    setNewPassword("")
+    setNewUserLevel("")
+    setNewUserRole([])
+    setNewUserProfile([])
+    setNewUserStatus("")
+  }
+
+  useEffect(()=>{
+    if(activeMenu=="userAdd"){
+      let arrow:HTMLSpanElement = document.getElementsByClassName("ant-select-arrow")
+      let selector:HTMLInputElement = document.getElementsByClassName("ant-select-selector")
+      let close:HTMLInputElement = document.getElementsByClassName("ant-select-clear")
+      if (arrow && selector){
+        close[0].style.left = "22px"
+        close[1].style.left = "22px"
+        arrow[0].style.left = "7px"
+        arrow[1].style.left = "7px"
+        selector[0].style.border = "none"
+        selector[1].style.border = "none"
+      }
+    }
+  })
 
   return (
     <div
@@ -175,8 +206,8 @@ export const userManager = () => {
                         </td>
                         <td>
                           <div className="flex xl:flex-row flex-col">
-                            <button className={(theme==="light"?"text-gray-600":"text-gray-100")}>ویرایش</button>
-                            <button className={(theme==="light"?"text-gray-600":"text-gray-100")}>تاریخچه ورود</button>
+                            <button className={(theme === "light" ? "text-gray-600" : "text-gray-100")}>ویرایش</button>
+                            <button className={(theme === "light" ? "text-gray-600" : "text-gray-100")}>تاریخچه ورود</button>
                           </div>
                         </td>
                       </tr>
@@ -195,48 +226,61 @@ export const userManager = () => {
                   <div className="flex flex-col m-5">
                     <div className="m-4 flex items-center justify-between">
                       <label htmlFor="firstName">نام</label>
-                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                      <input value={newFirstName} onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
                       <label htmlFor="lastName">نام خانوادگی</label>
-                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                      <input value={newLastName} onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="firstName">نام کاربری</label>
-                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                      <label htmlFor="username">نام کاربری</label>
+                      <input value={newUsername} onChange={(e) => { setNewUsername(e.target.value) }} id="username" type="text" className="win11input" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="lastName">رمز عبور</label>
-                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                      <label htmlFor="password">رمز عبور</label>
+                      <input value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} id="password" type="text" className="win11input" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="firstName">کدملی</label>
-                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                      <label htmlFor="nationalCode">کدملی</label>
+                      <input value={newNationalCode} onChange={(e) => { setNewNationalCode(e.target.value) }} id="nationalCode" type="text" className="win11input" />
                     </div>
                   </div>
                   <div className="flex flex-col m-5">
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="lastName">تاریخ تولد </label>
-                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                      <label htmlFor="birthDate">تاریخ تولد</label>
+                      <div className="win11input-holder">
+                        <DatePicker defaultValue={newBirthDate} id="birthDate" onChange={e => { setNewBirthDate((e.value?.toISOString() || "")) }} round="roundX2" accentColor="#0074ff" />
+                      </div>
+                      {/* <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" /> */}
                     </div>
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="firstName">ایمیل</label>
-                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                      <label htmlFor="newEmail">ایمیل</label>
+                      <input value={newEmail} onChange={(e) => { setNewEmail(e.target.value) }} id="newEmail" type="email" className="win11input" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="lastName">سطح کاربر</label>
-                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                      <label htmlFor="newUserLevel">سطح کاربر</label>
+                      <input value={newUserLevel} placeholder="بین ۱ تا ۱۰۰" onChange={(e) => { setNewUserLevel(e.target.value) }} id="newUserLevel" type="number" min={1} max={100} className="win11input" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="firstName">سمت</label>
-                      <input onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                      <label htmlFor="newUserRole">سمت</label>
+                      <Select mode="multiple" options={roleData} value={newUserRole} onChange={e=>{setNewUserRole(e)}} allowClear className="win11input w-full ant-select" />
                     </div>
                     <div className="m-4 flex items-center justify-between">
                       <label htmlFor="lastName">پروفایل</label>
-                      <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                      <Select mode="multiple" options={roleData} value={newUserProfile} onChange={e=>{setNewUserProfile(e)}} allowClear className="win11input w-full ant-select" />
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="mx-7 flex justify-start">
+                <button className="win11btn flex items-center" onClick={clearForm} >
+                  <img className="mx-2" width={24} height={24} src="img/icon/win/797.png" />
+                  بازنویسی
+                </button>
+                <button disabled className="win11btn flex items-center" >
+                  <img className="mx-2" width={24} height={24} src="img/settings/Accounts.webp" />
+                  اضافه کردن کاربر جدید
+                </button>
               </div>
             </main>
           }
@@ -261,11 +305,10 @@ export const userManager = () => {
                   }}
                   className="text-2xl font-semibold"
                 >
-                  Restart required
+                  {messageTitle}
                 </h1>
                 <p>
-                  Some changes will not take effect until you restart your
-                  device.
+                  {messageText}
                 </p>
 
                 <div

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useDispatch, useSelector } from "react-redux";
 import "./i18nextConf";
-import "./index.css";
+import "./index.scss";
 import qr from "./qrcode.png"
 import "./utils/axiosConfig"
 
