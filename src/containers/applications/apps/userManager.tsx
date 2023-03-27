@@ -52,7 +52,9 @@ export const userManager = () => {
     setActiveMenu("userEdit")
   }
 
-  const historyUser:(userID:number)=>MouseEventHandler<HTMLButtonElement> = (userID) => {}
+  const historyUser:(userID:number)=>MouseEventHandler<HTMLButtonElement> = (userID) => {
+    setActiveMenu("userHistory")
+  }
   
 
   useEffect(()=>{
@@ -303,7 +305,7 @@ export const userManager = () => {
             <main key="userEdit">
               <h1>ویرایش کردن کاربر </h1>
               <div className="tilesCont win11Scroll">
-                <div key="userAddPage" className="py-5 px-10 flex">
+                <div key="userEditPage" className="py-5 px-10 flex">
                   <div className="flex flex-col m-5">
                     <div className="m-4 flex items-center justify-between">
                       <label htmlFor="firstName">نام</label>
@@ -367,68 +369,51 @@ export const userManager = () => {
           }
 
           {activeMenu == "userHistory" &&
-            <main key="userEdit">
-              <h1>ویرایش کردن کاربر </h1>
+            <main key="userHistory">
+              <h1>تاریخچه ورود کاربر</h1>
               <div className="tilesCont win11Scroll">
-                <div key="userAddPage" className="py-5 px-10 flex">
-                  <div className="flex flex-col m-5">
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="firstName">نام</label>
-                      <input value={newFirstName} onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="lastName">نام خانوادگی</label>
-                      <input value={newLastName} onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="username">نام کاربری</label>
-                      <input value={newUsername} onChange={(e) => { setNewUsername(e.target.value) }} id="username" type="text" className="win11input" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="password">رمز عبور</label>
-                      <input value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} id="password" type="text" className="win11input" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="nationalCode">کدملی</label>
-                      <input value={newNationalCode} onChange={(e) => { setNewNationalCode(e.target.value) }} id="nationalCode" type="text" className="win11input" />
-                    </div>
-                  </div>
-                  <div className="flex flex-col m-5">
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="birthDate">تاریخ تولد</label>
-                      <div className="win11input-holder">
-                        <DatePicker defaultValue={newBirthDate} id="birthDate" onChange={e => { setNewBirthDate((e.value?.toISOString() || "")) }} round="roundX2" accentColor="#0074ff" />
-                      </div>
-                      {/* <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" /> */}
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="newEmail">ایمیل</label>
-                      <input value={newEmail} onChange={(e) => { setNewEmail(e.target.value) }} id="newEmail" type="email" className="win11input" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="newUserLevel">سطح کاربر</label>
-                      <input value={newUserLevel} placeholder="بین ۱ تا ۱۰۰" onChange={(e) => { setNewUserLevel(e.target.value) }} id="newUserLevel" type="number" min={1} max={100} className="win11input" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="newUserRole">سمت</label>
-                      <Select mode="multiple" options={roleData} value={newUserRole} onChange={e=>{setNewUserRole(e)}} allowClear className="win11input w-full ant-select" />
-                    </div>
-                    <div className="m-4 flex items-center justify-between">
-                      <label htmlFor="lastName">پروفایل</label>
-                      <Select mode="multiple" options={roleData} value={newUserProfile} onChange={e=>{setNewUserProfile(e)}} allowClear className="win11input w-full ant-select" />
-                    </div>
-                  </div>
+                <div key="userHistoryPage" className="py-5 px-10 flex">
+                <table className={"table-auto w-full " + ((theme === "light") ? "bg-white" : "bg-gray-700")}>
+                    <thead>
+                      <tr className="p-3">
+                        <th>تاریخ</th>
+                        <th>نوع فعالیت</th>
+                        <th>جزئیات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>۱۴۰۱/۱۲/۱۳  ۱۲:۳۰:۰۲</td>
+                        <td>تغییر نقش کاربری</td>
+                        <td>بدون توضیحات</td>
+                      </tr>
+                      <tr>
+                        <td>۱۴۰۱/۱۲/۱۳  ۱۲:۳۰:۰۲</td>
+                        <td>تغییر نقش کاربری</td>
+                        <td>بدون توضیحات</td>
+                      </tr>
+                      <tr>
+                        <td>۱۴۰۱/۱۲/۱۳  ۱۲:۳۰:۰۲</td>
+                        <td>تغییر نقش کاربری</td>
+                        <td>بدون توضیحات</td>
+                      </tr>
+                      <tr>
+                        <td>۱۴۰۱/۱۲/۱۳  ۱۲:۳۰:۰۲</td>
+                        <td>تغییر نقش کاربری</td>
+                        <td>بدون توضیحات</td>
+                      </tr>
+                      <tr>
+                        <td>۱۴۰۱/۱۲/۱۳  ۱۲:۳۰:۰۲</td>
+                        <td>تغییر نقش کاربری</td>
+                        <td>بدون توضیحات</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <div className="mx-7 flex justify-start">
-                <button className="win11btn flex items-center" onClick={clearForm} >
-                  <img className="mx-2" width={24} height={24} src="img/icon/win/797.png" />
-                  بازنویسی
-                </button>
-                <button disabled className="win11btn flex items-center" >
-                  <img className="mx-2" width={24} height={24} src="img/settings/Accounts.webp" />
-                   ویرایش اطلاعات
-                </button>
+                
               </div>
             </main>
           }
