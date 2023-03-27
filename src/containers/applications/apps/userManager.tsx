@@ -42,12 +42,25 @@ export const userManager = () => {
     setNewUserStatus("")
   }
 
+  const enableUser:(userID:number)=>MouseEventHandler<HTMLButtonElement> = (userID) => {
+    return alert(userID+ " Enabled!")
+  }
+  const disableUser:(userID:number)=>MouseEventHandler<HTMLButtonElement> = (userID) => {
+    return alert(userID+ " Disabled!")
+  }
+  const editUser:(userID:number)=>MouseEventHandler<HTMLButtonElement> = (userID) => {
+    setActiveMenu("userEdit")
+  }
+
+  const historyUser:(userID:number)=>MouseEventHandler<HTMLButtonElement> = (userID) => {}
+  
+
   useEffect(()=>{
     if(activeMenu=="userAdd"){
-      let arrow:HTMLSpanElement = document.getElementsByClassName("ant-select-arrow")
-      let selector:HTMLInputElement = document.getElementsByClassName("ant-select-selector")
-      let close:HTMLInputElement = document.getElementsByClassName("ant-select-clear")
-      if (arrow && selector){
+      let arrow:HTMLSpanElement[] = document.getElementsByClassName("ant-select-arrow")
+      let selector:HTMLInputElement[] = document.getElementsByClassName("ant-select-selector")
+      let close:HTMLInputElement[] = document.getElementsByClassName("ant-select-clear")
+      if (arrow && selector && close && close.length==2){
         close[0].style.left = "22px"
         close[1].style.left = "22px"
         arrow[0].style.left = "7px"
@@ -55,7 +68,7 @@ export const userManager = () => {
         selector[0].style.border = "none"
         selector[1].style.border = "none"
       }
-    }
+    } 
   })
 
   return (
@@ -138,8 +151,8 @@ export const userManager = () => {
                 />
                 راهنمای صفحه
               </div>
-              {activeMenu == "edit" &&
-                <div key="edit" className={"navLink ".concat((activeMenu == "edit") ? " selected" : "")} >
+              {activeMenu == "userEdit" &&
+                <div key="edit" className={"navLink ".concat((activeMenu == "userEdit") ? " selected" : "")} >
                   <img
                     src={`img/custom/user-edit.png`}
                     alt=""
@@ -149,8 +162,8 @@ export const userManager = () => {
                   ویرایش اطلاعات
                 </div>
               }
-              {activeMenu == "history" &&
-                <div key="history" className={"navLink ".concat((activeMenu == "history") ? " selected" : "")} >
+              {activeMenu == "userHistory" &&
+                <div key="history" className={"navLink ".concat((activeMenu == "userHistory") ? " selected" : "")} >
                   <img
                     src={`img/custom/time.png`}
                     alt=""
@@ -165,6 +178,7 @@ export const userManager = () => {
             </div>
 
           </nav>
+
           {activeMenu == "userList" &&
             <main key="userManager">
               <h1>مدیریت کاربران</h1>
@@ -192,13 +206,13 @@ export const userManager = () => {
                             {(!true) ?
                               <>
                                 <div className="status success"> فعال </div>
-                                <button className="danger">
+                                <button className="danger" onClick={()=>{disableUser(1)}}>
                                   <Icon fafa="faMinus" />
                                 </button>
                               </> :
                               <>
                                 <div className="status danger"> غیر فعال </div>
-                                <button className="success">
+                                <button className="success" onClick={()=>{enableUser(1)}}>
                                   <Icon fafa="faCheck" />
                                 </button></>
                             }
@@ -206,8 +220,8 @@ export const userManager = () => {
                         </td>
                         <td>
                           <div className="flex xl:flex-row flex-col">
-                            <button className={(theme === "light" ? "text-gray-600" : "text-gray-100")}>ویرایش</button>
-                            <button className={(theme === "light" ? "text-gray-600" : "text-gray-100")}>تاریخچه ورود</button>
+                            <button onClick={()=>{editUser(1)}} className={(theme === "light" ? "text-gray-600" : "text-gray-100")}>ویرایش</button>
+                            <button onClick={()=>{historyUser(1)}} className={(theme === "light" ? "text-gray-600" : "text-gray-100")}>تاریخچه ورود</button>
                           </div>
                         </td>
                       </tr>
@@ -280,6 +294,140 @@ export const userManager = () => {
                 <button disabled className="win11btn flex items-center" >
                   <img className="mx-2" width={24} height={24} src="img/settings/Accounts.webp" />
                   اضافه کردن کاربر جدید
+                </button>
+              </div>
+            </main>
+          }
+
+          {activeMenu == "userEdit" &&
+            <main key="userEdit">
+              <h1>ویرایش کردن کاربر </h1>
+              <div className="tilesCont win11Scroll">
+                <div key="userAddPage" className="py-5 px-10 flex">
+                  <div className="flex flex-col m-5">
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">نام</label>
+                      <input value={newFirstName} onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">نام خانوادگی</label>
+                      <input value={newLastName} onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="username">نام کاربری</label>
+                      <input value={newUsername} onChange={(e) => { setNewUsername(e.target.value) }} id="username" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="password">رمز عبور</label>
+                      <input value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} id="password" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="nationalCode">کدملی</label>
+                      <input value={newNationalCode} onChange={(e) => { setNewNationalCode(e.target.value) }} id="nationalCode" type="text" className="win11input" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col m-5">
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="birthDate">تاریخ تولد</label>
+                      <div className="win11input-holder">
+                        <DatePicker defaultValue={newBirthDate} id="birthDate" onChange={e => { setNewBirthDate((e.value?.toISOString() || "")) }} round="roundX2" accentColor="#0074ff" />
+                      </div>
+                      {/* <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" /> */}
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="newEmail">ایمیل</label>
+                      <input value={newEmail} onChange={(e) => { setNewEmail(e.target.value) }} id="newEmail" type="email" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="newUserLevel">سطح کاربر</label>
+                      <input value={newUserLevel} placeholder="بین ۱ تا ۱۰۰" onChange={(e) => { setNewUserLevel(e.target.value) }} id="newUserLevel" type="number" min={1} max={100} className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="newUserRole">سمت</label>
+                      <Select mode="multiple" options={roleData} value={newUserRole} onChange={e=>{setNewUserRole(e)}} allowClear className="win11input w-full ant-select" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">پروفایل</label>
+                      <Select mode="multiple" options={roleData} value={newUserProfile} onChange={e=>{setNewUserProfile(e)}} allowClear className="win11input w-full ant-select" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mx-7 flex justify-start">
+                <button className="win11btn flex items-center" onClick={clearForm} >
+                  <img className="mx-2" width={24} height={24} src="img/icon/win/797.png" />
+                  بازنویسی
+                </button>
+                <button disabled className="win11btn flex items-center" >
+                  <img className="mx-2" width={24} height={24} src="img/settings/Accounts.webp" />
+                   ویرایش اطلاعات
+                </button>
+              </div>
+            </main>
+          }
+
+          {activeMenu == "userHistory" &&
+            <main key="userEdit">
+              <h1>ویرایش کردن کاربر </h1>
+              <div className="tilesCont win11Scroll">
+                <div key="userAddPage" className="py-5 px-10 flex">
+                  <div className="flex flex-col m-5">
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="firstName">نام</label>
+                      <input value={newFirstName} onChange={(e) => { setNewFirstName(e.target.value) }} id="firstName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">نام خانوادگی</label>
+                      <input value={newLastName} onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="username">نام کاربری</label>
+                      <input value={newUsername} onChange={(e) => { setNewUsername(e.target.value) }} id="username" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="password">رمز عبور</label>
+                      <input value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} id="password" type="text" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="nationalCode">کدملی</label>
+                      <input value={newNationalCode} onChange={(e) => { setNewNationalCode(e.target.value) }} id="nationalCode" type="text" className="win11input" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col m-5">
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="birthDate">تاریخ تولد</label>
+                      <div className="win11input-holder">
+                        <DatePicker defaultValue={newBirthDate} id="birthDate" onChange={e => { setNewBirthDate((e.value?.toISOString() || "")) }} round="roundX2" accentColor="#0074ff" />
+                      </div>
+                      {/* <input onChange={(e) => { setNewLastName(e.target.value) }} id="lastName" type="text" className="win11input" /> */}
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="newEmail">ایمیل</label>
+                      <input value={newEmail} onChange={(e) => { setNewEmail(e.target.value) }} id="newEmail" type="email" className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="newUserLevel">سطح کاربر</label>
+                      <input value={newUserLevel} placeholder="بین ۱ تا ۱۰۰" onChange={(e) => { setNewUserLevel(e.target.value) }} id="newUserLevel" type="number" min={1} max={100} className="win11input" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="newUserRole">سمت</label>
+                      <Select mode="multiple" options={roleData} value={newUserRole} onChange={e=>{setNewUserRole(e)}} allowClear className="win11input w-full ant-select" />
+                    </div>
+                    <div className="m-4 flex items-center justify-between">
+                      <label htmlFor="lastName">پروفایل</label>
+                      <Select mode="multiple" options={roleData} value={newUserProfile} onChange={e=>{setNewUserProfile(e)}} allowClear className="win11input w-full ant-select" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mx-7 flex justify-start">
+                <button className="win11btn flex items-center" onClick={clearForm} >
+                  <img className="mx-2" width={24} height={24} src="img/icon/win/797.png" />
+                  بازنویسی
+                </button>
+                <button disabled className="win11btn flex items-center" >
+                  <img className="mx-2" width={24} height={24} src="img/settings/Accounts.webp" />
+                   ویرایش اطلاعات
                 </button>
               </div>
             </main>
